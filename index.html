@@ -1,0 +1,951 @@
+<title>MindOS</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+
+<style>
+:root {
+  --brand: #0D7377;
+  --brand-dim: #0A5C5F;
+  --accent: #E8A838;
+  --accent-soft: rgba(232,168,56,0.12);
+  --bg: #F0EDEA;
+  --bg-alt: #E6E3DF;
+  --card: #FFFFFF;
+  --card-border: rgba(44,46,51,0.08);
+  --text: #2C2E33;
+  --text-2: #6B6E76;
+  --text-3: #9B9DA3;
+  --success: #2ECC71;
+  --warning: #F39C12;
+  --danger: #E74C3C;
+  --wa-header: #075E54;
+  --wa-header-text: #FFFFFF;
+  --wa-bg: #E5DDD5;
+  --wa-sent: #DCF8C6;
+  --wa-sent-text: #303030;
+  --wa-recv: #FFFFFF;
+  --wa-recv-text: #303030;
+  --wa-time: #667781;
+  --wa-input-bg: #F0F2F5;
+  --phone-frame: #1A1A1A;
+  --phone-shadow: rgba(0,0,0,0.2);
+}
+@media(prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg: #111318;
+    --bg-alt: #1A1D24;
+    --card: #22262E;
+    --card-border: rgba(255,255,255,0.06);
+    --text: #E4E2DD;
+    --text-2: #9B9DA3;
+    --text-3: #6B6E76;
+    --wa-header: #1F2C33;
+    --wa-bg: #0B141A;
+    --wa-sent: #005C4B;
+    --wa-sent-text: #E9EDEF;
+    --wa-recv: #202C33;
+    --wa-recv-text: #E9EDEF;
+    --wa-time: #8696A0;
+    --wa-input-bg: #1F2C33;
+    --phone-frame: #2A2A2A;
+    --phone-shadow: rgba(0,0,0,0.5);
+  }
+}
+:root[data-theme="dark"]{
+  --bg: #111318;
+  --bg-alt: #1A1D24;
+  --card: #22262E;
+  --card-border: rgba(255,255,255,0.06);
+  --text: #E4E2DD;
+  --text-2: #9B9DA3;
+  --text-3: #6B6E76;
+  --wa-header: #1F2C33;
+  --wa-bg: #0B141A;
+  --wa-sent: #005C4B;
+  --wa-sent-text: #E9EDEF;
+  --wa-recv: #202C33;
+  --wa-recv-text: #E9EDEF;
+  --wa-time: #8696A0;
+  --wa-input-bg: #1F2C33;
+  --phone-frame: #2A2A2A;
+  --phone-shadow: rgba(0,0,0,0.5);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+body{
+  font-family:'IBM Plex Sans',system-ui,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  padding-inline:20px;
+  padding-block:0;
+  min-height:100vh;
+}
+
+/* ── Header ── */
+.header{
+  display:flex;
+  align-items:center;
+  gap:16px;
+  padding:24px 0 20px;
+  border-bottom:1px solid var(--card-border);
+  margin-bottom:32px;
+  flex-wrap:wrap;
+}
+.logo{
+  font-family:'DM Serif Display',Georgia,serif;
+  font-size:28px;
+  color:var(--brand);
+  letter-spacing:-0.5px;
+}
+.logo span{color:var(--accent)}
+.tagline{
+  font-size:14px;
+  color:var(--text-2);
+  line-height:1.3;
+  max-width:380px;
+}
+.badge{
+  margin-left:auto;
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:0.06em;
+  text-transform:uppercase;
+  color:var(--brand);
+  background:rgba(13,115,119,0.1);
+  padding:4px 10px;
+  border-radius:20px;
+}
+
+/* ── Main layout ── */
+.main{
+  display:grid;
+  grid-template-columns:360px 1fr;
+  gap:32px;
+  align-items:start;
+  margin-bottom:40px;
+}
+@media(max-width:840px){
+  .main{
+    grid-template-columns:1fr;
+    justify-items:center;
+  }
+}
+
+/* ── Phone mockup ── */
+.phone-wrap{
+  position:sticky;
+  top:20px;
+}
+@media(max-width:840px){
+  .phone-wrap{position:static}
+}
+.phone{
+  width:340px;
+  height:620px;
+  border-radius:36px;
+  border:6px solid var(--phone-frame);
+  background:var(--wa-bg);
+  box-shadow:0 24px 48px var(--phone-shadow), 0 0 0 1px rgba(255,255,255,0.05) inset;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+}
+.phone-status{
+  background:var(--wa-header);
+  color:var(--wa-header-text);
+  font-family:'IBM Plex Mono','Courier New',monospace;
+  font-size:11px;
+  font-weight:500;
+  display:flex;
+  justify-content:space-between;
+  padding:6px 20px 4px;
+}
+.wa-head{
+  background:var(--wa-header);
+  color:var(--wa-header-text);
+  padding:8px 12px 10px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.wa-avatar{
+  width:36px;height:36px;
+  border-radius:50%;
+  background:var(--accent);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'DM Serif Display',serif;
+  font-size:16px;
+  color:#fff;
+  flex-shrink:0;
+}
+.wa-info{flex:1}
+.wa-name{font-size:15px;font-weight:600}
+.wa-status{font-size:11px;opacity:0.8}
+.wa-icons{display:flex;gap:14px;opacity:0.8}
+.wa-icons svg{width:18px;height:18px;fill:currentColor}
+
+.chat-area{
+  flex:1;
+  overflow-y:auto;
+  padding:12px;
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+  scrollbar-width:thin;
+}
+.chat-area::-webkit-scrollbar{width:4px}
+.chat-area::-webkit-scrollbar-thumb{background:rgba(0,0,0,0.15);border-radius:4px}
+
+.msg{
+  max-width:88%;
+  padding:6px 8px 2px;
+  border-radius:8px;
+  font-size:13.5px;
+  line-height:1.45;
+  position:relative;
+  animation:msg-in 0.25s ease-out;
+}
+@keyframes msg-in{
+  from{opacity:0;transform:translateY(6px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.msg.sent{
+  background:var(--wa-sent);
+  color:var(--wa-sent-text);
+  align-self:flex-end;
+  border-bottom-right-radius:2px;
+}
+.msg.recv{
+  background:var(--wa-recv);
+  color:var(--wa-recv-text);
+  align-self:flex-start;
+  border-bottom-left-radius:2px;
+}
+.msg-footer{
+  display:flex;
+  justify-content:flex-end;
+  align-items:center;
+  gap:4px;
+  margin-top:1px;
+  padding-bottom:2px;
+}
+.msg-time{
+  font-size:10.5px;
+  font-family:'IBM Plex Mono',monospace;
+  color:var(--wa-time);
+}
+.msg-check{font-size:12px;color:#53BDEB}
+.msg-body strong{font-weight:600}
+.msg-body{white-space:pre-line}
+
+.typing{
+  align-self:flex-start;
+  background:var(--wa-recv);
+  border-radius:8px;
+  border-bottom-left-radius:2px;
+  padding:10px 14px;
+  display:flex;gap:4px;
+  animation:msg-in 0.2s ease-out;
+}
+.typing[hidden]{display:none!important}
+.typing-dot{
+  width:7px;height:7px;
+  border-radius:50%;
+  background:var(--wa-time);
+  animation:bounce 1.3s infinite;
+}
+.typing-dot:nth-child(2){animation-delay:0.15s}
+.typing-dot:nth-child(3){animation-delay:0.3s}
+@keyframes bounce{
+  0%,60%,100%{transform:translateY(0)}
+  30%{transform:translateY(-5px)}
+}
+
+.wa-foot{
+  background:var(--wa-input-bg);
+  padding:6px 8px;
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+.wa-input{
+  flex:1;
+  background:var(--card);
+  border:none;
+  border-radius:20px;
+  padding:8px 14px;
+  font-size:13px;
+  color:var(--text-3);
+  font-family:inherit;
+}
+.wa-mic{
+  width:34px;height:34px;
+  border-radius:50%;
+  background:var(--wa-header);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.wa-mic svg{width:18px;height:18px;fill:#fff}
+
+.quick-chips{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  padding:4px 0 2px;
+  align-self:stretch;
+}
+.chip{
+  font-size:12px;
+  font-family:inherit;
+  font-weight:500;
+  color:var(--brand);
+  background:transparent;
+  border:1.5px solid var(--brand);
+  border-radius:18px;
+  padding:5px 12px;
+  cursor:pointer;
+  transition:all 0.15s;
+  white-space:nowrap;
+}
+.chip:hover{
+  background:var(--brand);
+  color:#fff;
+}
+.reset-btn{
+  display:block;
+  margin:12px auto 0;
+  font-size:12px;
+  font-family:inherit;
+  color:var(--text-3);
+  background:none;
+  border:none;
+  cursor:pointer;
+  padding:4px 8px;
+  text-decoration:underline;
+  text-underline-offset:2px;
+}
+.reset-btn:hover{color:var(--text)}
+
+/* ── Dashboard panel ── */
+.panel{
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+  min-width:0;
+}
+.panel-card{
+  background:var(--card);
+  border:1px solid var(--card-border);
+  border-radius:14px;
+  padding:20px;
+}
+.panel-title{
+  font-family:'DM Serif Display',serif;
+  font-size:18px;
+  margin-bottom:14px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.panel-title .dot{
+  width:8px;height:8px;
+  border-radius:50%;
+  background:var(--brand);
+}
+
+/* Stats row */
+.stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  margin-bottom:16px;
+}
+.stat{
+  text-align:center;
+  padding:10px 6px;
+  border-radius:10px;
+  background:var(--bg);
+}
+.stat-val{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:22px;
+  font-weight:700;
+  color:var(--brand);
+  line-height:1;
+}
+.stat-val.warn{color:var(--warning)}
+.stat-label{
+  font-size:11px;
+  color:var(--text-2);
+  margin-top:4px;
+  letter-spacing:0.03em;
+  text-transform:uppercase;
+}
+
+/* Timeline */
+.timeline{display:flex;flex-direction:column;gap:0}
+.tl-item{
+  display:grid;
+  grid-template-columns:52px 12px 1fr;
+  gap:8px;
+  align-items:start;
+  min-height:44px;
+}
+.tl-time{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:12px;
+  font-weight:500;
+  color:var(--text-2);
+  text-align:right;
+  padding-top:2px;
+}
+.tl-dot-col{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  height:100%;
+  padding-top:5px;
+}
+.tl-dot{
+  width:10px;height:10px;
+  border-radius:50%;
+  flex-shrink:0;
+}
+.tl-line{
+  width:2px;
+  flex:1;
+  background:var(--card-border);
+  margin-top:4px;
+}
+.tl-content{padding:0 0 12px}
+.tl-title{font-size:13px;font-weight:600}
+.tl-sub{font-size:11.5px;color:var(--text-2);margin-top:1px}
+.tl-tag{
+  display:inline-block;
+  font-size:10px;
+  font-weight:600;
+  letter-spacing:0.04em;
+  padding:2px 6px;
+  border-radius:4px;
+  margin-top:3px;
+}
+
+/* Integrations grid */
+.int-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+}
+@media(max-width:500px){
+  .int-grid{grid-template-columns:repeat(2,1fr)}
+}
+.int-item{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:10px;
+  border-radius:10px;
+  background:var(--bg);
+  transition:transform 0.15s;
+}
+.int-item:hover{transform:translateY(-1px)}
+.int-icon{
+  width:32px;height:32px;
+  border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:700;
+  font-size:14px;
+  color:#fff;
+  flex-shrink:0;
+}
+.int-name{font-size:12px;font-weight:600;line-height:1.2}
+.int-status{
+  font-size:10px;
+  color:var(--success);
+  display:flex;
+  align-items:center;
+  gap:3px;
+}
+.int-status::before{
+  content:'';
+  width:5px;height:5px;
+  border-radius:50%;
+  background:var(--success);
+}
+
+/* Sleep chart */
+.sleep-chart{display:flex;flex-direction:column;gap:6px}
+.sleep-row{
+  display:grid;
+  grid-template-columns:32px 1fr 40px;
+  gap:8px;
+  align-items:center;
+}
+.sleep-day{
+  font-size:11px;
+  font-weight:600;
+  color:var(--text-2);
+  text-transform:uppercase;
+}
+.sleep-bar-track{
+  height:16px;
+  border-radius:8px;
+  background:var(--bg);
+  overflow:hidden;
+}
+.sleep-bar{
+  height:100%;
+  border-radius:8px;
+  transition:width 0.6s ease-out;
+}
+.sleep-val{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;
+  font-weight:500;
+  color:var(--text-2);
+  text-align:right;
+}
+.sleep-note{
+  font-size:12px;
+  color:var(--text-2);
+  margin-top:10px;
+  padding:8px 10px;
+  border-radius:8px;
+  background:var(--accent-soft);
+  border-left:3px solid var(--accent);
+}
+
+/* ── Features ── */
+.features{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px;
+  margin-bottom:40px;
+}
+@media(max-width:700px){
+  .features{grid-template-columns:1fr}
+}
+.feat{
+  background:var(--card);
+  border:1px solid var(--card-border);
+  border-radius:14px;
+  padding:20px;
+}
+.feat-icon{
+  width:40px;height:40px;
+  border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:12px;
+  font-size:20px;
+}
+.feat-title{
+  font-family:'DM Serif Display',serif;
+  font-size:16px;
+  margin-bottom:6px;
+}
+.feat-desc{
+  font-size:13px;
+  color:var(--text-2);
+  line-height:1.5;
+}
+
+/* ── Footer ── */
+.footer{
+  text-align:center;
+  padding:20px 0 32px;
+  font-size:12px;
+  color:var(--text-3);
+  border-top:1px solid var(--card-border);
+}
+.footer strong{color:var(--brand);font-weight:600}
+
+/* ── Reduced motion ── */
+@media(prefers-reduced-motion:reduce){
+  .msg,.typing{animation:none}
+  .typing-dot{animation:none}
+  .sleep-bar{transition:none}
+}
+</style>
+
+<!-- ════ Header ════ -->
+<header class="header">
+  <div class="logo">Mind<span>OS</span></div>
+  <p class="tagline">Conecta todas tus herramientas educativas. Organiza tu vida estudiantil desde WhatsApp.</p>
+  <span class="badge">Demo IPN 2026</span>
+</header>
+
+<!-- ════ Main ════ -->
+<div class="main">
+
+  <!-- Phone mockup -->
+  <div class="phone-wrap">
+    <div class="phone">
+      <div class="phone-status">
+        <span>9:41</span>
+        <span>LTE &nbsp;84%</span>
+      </div>
+      <div class="wa-head">
+        <div class="wa-avatar">M</div>
+        <div class="wa-info">
+          <div class="wa-name">MindOS</div>
+          <div class="wa-status">en linea</div>
+        </div>
+        <div class="wa-icons">
+          <svg viewBox="0 0 24 24"><path d="M15.9 14.3c-.2-.1-1.2-.6-1.4-.7-.2-.1-.3-.1-.5.1-.1.2-.5.7-.7.8-.1.2-.3.1-.5 0-.2-.1-1-.4-1.9-1.2-.7-.6-1.2-1.4-1.3-1.6-.1-.2 0-.3.1-.5.1-.1.2-.3.3-.4.1-.1.1-.2.2-.3 0-.1 0-.3 0-.4-.1-.1-.5-1.2-.7-1.6-.2-.4-.4-.4-.5-.4h-.4c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 1.9s.8 2.2.9 2.3c.1.2 1.6 2.4 3.8 3.4.5.2.9.4 1.3.5.5.2 1 .1 1.4.1.4-.1 1.2-.5 1.4-1 .2-.5.2-.9.1-1-.1-.1-.3-.2-.5-.3zM12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.5 1.3 5L2 22l5.2-1.3C8.6 21.5 10.3 22 12 22c5.5 0 10-4.5 10-10S17.5 2 12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 8c-2.2 0-4 1.8-4 4s1.8 4 4 4 4-1.8 4-4-1.8-4-4-4zm8.9 3c-.5-4.2-3.7-7.4-7.9-7.9V1h-2v2.1C6.8 3.6 3.6 6.8 3.1 11H1v2h2.1c.5 4.2 3.7 7.4 7.9 7.9V23h2v-2.1c4.2-.5 7.4-3.7 7.9-7.9H23v-2h-2.1zM12 19c-3.9 0-7-3.1-7-7s3.1-7 7-7 7 3.1 7 7-3.1 7-7 7z"/></svg>
+        </div>
+      </div>
+      <div class="chat-area" id="chatArea">
+        <!-- Welcome message -->
+        <div class="msg recv">
+          <div class="msg-body">Hola Damian! Soy <strong>MindOS</strong>, tu asistente academico.
+
+Tengo acceso a tu Classroom, Teams, Drive, Notion, Asana, Zoom y Meet. Preguntame lo que necesites.</div>
+          <div class="msg-footer">
+            <span class="msg-time">9:41</span>
+          </div>
+        </div>
+        <!-- Quick reply chips inside chat -->
+        <div class="quick-chips" id="quickChips">
+          <button class="chip" onclick="startConvo('tasks')">Tareas de manana</button>
+          <button class="chip" onclick="startConvo('study')">Planifica mi estudio</button>
+          <button class="chip" onclick="startConvo('meetings')">Reuniones hoy</button>
+        </div>
+      </div>
+      <div class="wa-foot">
+        <div class="wa-input">Escribe un mensaje...</div>
+        <div class="wa-mic">
+          <svg viewBox="0 0 24 24"><path d="M12 14c1.7 0 3-1.3 3-3V5c0-1.7-1.3-3-3-3S9 3.3 9 5v6c0 1.7 1.3 3 3 3zm5-3c0 2.8-2.2 5-5 5s-5-2.2-5-5H5c0 3.5 2.6 6.4 6 6.9V21h2v-3.1c3.4-.5 6-3.4 6-6.9h-2z"/></svg>
+        </div>
+      </div>
+    </div>
+    <button class="reset-btn" id="resetBtn" onclick="resetChat()" hidden>Reiniciar conversacion</button>
+  </div>
+
+  <!-- Dashboard panel -->
+  <div class="panel">
+
+    <!-- Today overview -->
+    <div class="panel-card">
+      <div class="panel-title"><span class="dot"></span> Lunes 15 de septiembre</div>
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-val">3</div>
+          <div class="stat-label">Tareas</div>
+        </div>
+        <div class="stat">
+          <div class="stat-val">2</div>
+          <div class="stat-label">Reuniones</div>
+        </div>
+        <div class="stat">
+          <div class="stat-val warn">6.2h</div>
+          <div class="stat-label">Sueno</div>
+        </div>
+      </div>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-time">07:00</div>
+          <div class="tl-dot-col"><div class="tl-dot" style="background:#4285F4"></div><div class="tl-line"></div></div>
+          <div class="tl-content">
+            <div class="tl-title">Circuitos Electricos</div>
+            <div class="tl-sub">Aula 204 &middot; Prof. Martinez</div>
+            <div class="tl-tag" style="background:rgba(66,133,244,0.12);color:#4285F4">Classroom</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">09:00</div>
+          <div class="tl-dot-col"><div class="tl-dot" style="background:#6264A7"></div><div class="tl-line"></div></div>
+          <div class="tl-content">
+            <div class="tl-title">Probabilidad y Estadistica</div>
+            <div class="tl-sub">Aula 301 &middot; Quiz pendiente</div>
+            <div class="tl-tag" style="background:rgba(98,100,167,0.12);color:#6264A7">Teams</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">11:30</div>
+          <div class="tl-dot-col"><div class="tl-dot" style="background:#2D8CFF"></div><div class="tl-line"></div></div>
+          <div class="tl-content">
+            <div class="tl-title">Sync equipo MindOS</div>
+            <div class="tl-sub">Zoom &middot; Ana, Carlos, Sofia</div>
+            <div class="tl-tag" style="background:rgba(45,140,255,0.12);color:#2D8CFF">Zoom</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">13:00</div>
+          <div class="tl-dot-col"><div class="tl-dot" style="background:var(--brand)"></div><div class="tl-line"></div></div>
+          <div class="tl-content">
+            <div class="tl-title">Analisis y Diseno de Sistemas</div>
+            <div class="tl-sub">Aula 105 &middot; Entrega propuesta</div>
+            <div class="tl-tag" style="background:rgba(13,115,119,0.12);color:var(--brand)">Classroom</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">15:30</div>
+          <div class="tl-dot-col"><div class="tl-dot" style="background:var(--accent)"></div><div class="tl-line"></div></div>
+          <div class="tl-content">
+            <div class="tl-title">Estudio: Reporte Circuitos</div>
+            <div class="tl-sub">Pomodoro 25/5 &middot; Drive: Diagrama_v2.pdf</div>
+            <div class="tl-tag" style="background:var(--accent-soft);color:#C08020">MindOS Plan</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">19:00</div>
+          <div class="tl-dot-col"><div class="tl-dot" style="background:#F06A6A"></div></div>
+          <div class="tl-content">
+            <div class="tl-title">Revision mockups proyecto</div>
+            <div class="tl-sub">Asana &middot; Sprint 3</div>
+            <div class="tl-tag" style="background:rgba(240,106,106,0.12);color:#F06A6A">Asana</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Integrations -->
+    <div class="panel-card">
+      <div class="panel-title"><span class="dot"></span> Integraciones conectadas</div>
+      <div class="int-grid">
+        <div class="int-item">
+          <div class="int-icon" style="background:#0F9D58">C</div>
+          <div><div class="int-name">Google Classroom</div><div class="int-status">Conectado</div></div>
+        </div>
+        <div class="int-item">
+          <div class="int-icon" style="background:#6264A7">T</div>
+          <div><div class="int-name">Microsoft Teams</div><div class="int-status">Conectado</div></div>
+        </div>
+        <div class="int-item">
+          <div class="int-icon" style="background:#191919">N</div>
+          <div><div class="int-name">Notion</div><div class="int-status">Conectado</div></div>
+        </div>
+        <div class="int-item">
+          <div class="int-icon" style="background:#4285F4">D</div>
+          <div><div class="int-name">Google Drive</div><div class="int-status">Conectado</div></div>
+        </div>
+        <div class="int-item">
+          <div class="int-icon" style="background:#F06A6A">A</div>
+          <div><div class="int-name">Asana</div><div class="int-status">Conectado</div></div>
+        </div>
+        <div class="int-item">
+          <div class="int-icon" style="background:#2D8CFF">Z</div>
+          <div><div class="int-name">Zoom</div><div class="int-status">Conectado</div></div>
+        </div>
+        <div class="int-item">
+          <div class="int-icon" style="background:#00897B">M</div>
+          <div><div class="int-name">Google Meet</div><div class="int-status">Conectado</div></div>
+        </div>
+        <div class="int-item">
+          <div class="int-icon" style="background:#006BFF">Ca</div>
+          <div><div class="int-name">Calendly</div><div class="int-status">Conectado</div></div>
+        </div>
+        <div class="int-item">
+          <div class="int-icon" style="background:#25D366">W</div>
+          <div><div class="int-name">WhatsApp</div><div class="int-status">Conectado</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sleep & habits -->
+    <div class="panel-card">
+      <div class="panel-title"><span class="dot"></span> Habitos de sueno (esta semana)</div>
+      <div class="sleep-chart" id="sleepChart">
+        <div class="sleep-row"><span class="sleep-day">Lun</span><div class="sleep-bar-track"><div class="sleep-bar" style="width:93.7%;background:var(--success)"></div></div><span class="sleep-val">7.5h</span></div>
+        <div class="sleep-row"><span class="sleep-day">Mar</span><div class="sleep-bar-track"><div class="sleep-bar" style="width:85%;background:var(--success)"></div></div><span class="sleep-val">6.8h</span></div>
+        <div class="sleep-row"><span class="sleep-day">Mie</span><div class="sleep-bar-track"><div class="sleep-bar" style="width:90%;background:var(--success)"></div></div><span class="sleep-val">7.2h</span></div>
+        <div class="sleep-row"><span class="sleep-day">Jue</span><div class="sleep-bar-track"><div class="sleep-bar" style="width:68.7%;background:var(--danger)"></div></div><span class="sleep-val">5.5h</span></div>
+        <div class="sleep-row"><span class="sleep-day">Vie</span><div class="sleep-bar-track"><div class="sleep-bar" style="width:77.5%;background:var(--warning)"></div></div><span class="sleep-val">6.2h</span></div>
+        <div class="sleep-row"><span class="sleep-day">Sab</span><div class="sleep-bar-track"><div class="sleep-bar" style="width:100%;background:var(--success)"></div></div><span class="sleep-val">8.1h</span></div>
+        <div class="sleep-row"><span class="sleep-day">Dom</span><div class="sleep-bar-track"><div class="sleep-bar" style="width:77.5%;background:var(--warning)"></div></div><span class="sleep-val">6.2h</span></div>
+      </div>
+      <div class="sleep-note">Promedio semanal: <strong>6.8h</strong> &mdash; Meta: 7.5h. Intenta acostarte 30 min antes esta noche.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ Features ════ -->
+<div class="features">
+  <div class="feat">
+    <div class="feat-icon" style="background:rgba(13,115,119,0.1);color:var(--brand)">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+    </div>
+    <div class="feat-title">Conexion automatica</div>
+    <div class="feat-desc">Se conecta a Classroom, Teams, Notion, Drive, Asana, Zoom, Meet y Calendly. Sin configurar nada: autorizas una vez y MindOS sincroniza todo.</div>
+  </div>
+  <div class="feat">
+    <div class="feat-icon" style="background:rgba(37,211,102,0.1);color:#25D366">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    </div>
+    <div class="feat-title">Habla natural por WhatsApp</div>
+    <div class="feat-desc">Pregunta en lenguaje natural lo que necesites. MindOS entiende contexto, prioridades y urgencia para darte respuestas utiles al instante.</div>
+  </div>
+  <div class="feat">
+    <div class="feat-icon" style="background:var(--accent-soft);color:#C08020">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"/></svg>
+    </div>
+    <div class="feat-title">Planificacion inteligente</div>
+    <div class="feat-desc">Genera horarios de estudio basados en tus entregas, clases y habitos de sueno. Optimiza tu tiempo con tecnica Pomodoro y pausas activas.</div>
+  </div>
+</div>
+
+<!-- ════ Footer ════ -->
+<div class="footer">
+  <strong>MindOS</strong> &middot; Propuesta ADS &middot; Instituto Politecnico Nacional &middot; 2026
+</div>
+
+<script>
+const chatArea = document.getElementById('chatArea');
+const quickChips = document.getElementById('quickChips');
+const resetBtn = document.getElementById('resetBtn');
+
+const convos = {
+  tasks: {
+    query: 'Que tengo que hacer manana?',
+    time: '9:42',
+    response: `<strong>Tu resumen para manana, lun 15 sep:</strong>
+
+<strong>Tareas pendientes</strong>
+  Classroom &mdash; Entregar reporte de Circuitos Electricos (11:59 PM)
+  Teams &mdash; Quiz de Probabilidad y Estadistica (antes de clase)
+  Asana &mdash; Revisar mockups del proyecto MindOS
+
+<strong>Clases y reuniones</strong>
+  7:00 - 9:00 &mdash; Circuitos Electricos (Aula 204)
+  9:00 - 11:00 &mdash; Probabilidad y Estadistica (Aula 301)
+  11:30 - 12:00 &mdash; Sync equipo MindOS (Zoom)
+  13:00 - 15:00 &mdash; Analisis y Diseno de Sistemas (Aula 105)
+
+<strong>Archivos por revisar</strong>
+  Drive &mdash; "Diagrama_Circuitos_v2.pdf" (compartido por Ana)
+  Notion &mdash; Notas de clase actualizadas
+
+Necesitas que te arme un plan de estudio para hoy?`,
+    responseTime: '9:42'
+  },
+  study: {
+    query: 'Planifica mi dia de estudio',
+    time: '9:43',
+    response: `<strong>Plan de estudio optimizado para hoy:</strong>
+
+Basado en tus entregas pendientes y tus habitos:
+
+<strong>Tarde (despues de clases)</strong>
+  15:30 - 16:00 &mdash; Descanso activo (caminar, snack)
+  16:00 - 17:30 &mdash; Circuitos Electricos (reporte)
+     Tecnica Pomodoro: 25 min / 5 min pausa
+     Documento base en Drive: "Diagrama_v2.pdf"
+  17:30 - 17:45 &mdash; Pausa larga
+  17:45 - 18:45 &mdash; Probabilidad (preparar quiz)
+     Notas en Notion actualizadas
+
+<strong>Noche</strong>
+  19:00 - 20:00 &mdash; Revisar mockups MindOS (Asana)
+  20:00 &mdash; Cena
+  21:00 &mdash; Preparar mochila + rutina de sueno
+  22:30 &mdash; Hora de dormir (meta: 7.5h)
+
+<strong>Tip:</strong> Dormiste 6.2h anoche. Intenta acostarte 30 min antes hoy.`,
+    responseTime: '9:43'
+  },
+  meetings: {
+    query: 'Tengo reuniones hoy?',
+    time: '9:44',
+    response: `<strong>Reuniones para hoy, dom 14 de septiembre:</strong>
+
+Tienes 2 reuniones programadas:
+
+<strong>11:00 - 11:30</strong> &mdash; Sync semanal equipo MindOS
+   Zoom &mdash; Unirse al enlace
+   Ana, Carlos, Sofia
+   Agenda: Revision de mockups y sprint planning
+
+<strong>16:00 - 16:30</strong> &mdash; Asesoria con Prof. Garcia
+   Google Meet &mdash; Unirse al enlace
+   Tema: Dudas del proyecto final de Circuitos
+
+Te enviare un recordatorio 15 min antes de cada una.
+
+Quieres que agregue algo a la agenda de alguna reunion?`,
+    responseTime: '9:44'
+  }
+};
+
+let usedConvos = new Set();
+let busy = false;
+
+function createMsg(type, html, time) {
+  const msg = document.createElement('div');
+  msg.className = `msg ${type}`;
+  msg.innerHTML = `<div class="msg-body">${html}</div>
+    <div class="msg-footer">
+      <span class="msg-time">${time}</span>
+      ${type === 'sent' ? '<span class="msg-check">&#10003;&#10003;</span>' : ''}
+    </div>`;
+  return msg;
+}
+
+function showTyping() {
+  const t = document.createElement('div');
+  t.className = 'typing';
+  t.id = 'typingIndicator';
+  t.innerHTML = '<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
+  chatArea.appendChild(t);
+  scrollChat();
+}
+
+function hideTyping() {
+  const t = document.getElementById('typingIndicator');
+  if (t) t.remove();
+}
+
+function scrollChat() {
+  chatArea.scrollTop = chatArea.scrollHeight;
+}
+
+function updateChips() {
+  const remaining = Object.keys(convos).filter(k => !usedConvos.has(k));
+  quickChips.innerHTML = '';
+  remaining.forEach(k => {
+    const btn = document.createElement('button');
+    btn.className = 'chip';
+    btn.textContent = convos[k].query;
+    btn.onclick = () => startConvo(k);
+    quickChips.appendChild(btn);
+  });
+  if (remaining.length === 0) {
+    quickChips.innerHTML = '<span style="font-size:12px;color:var(--text-3)">Has explorado todas las conversaciones</span>';
+  }
+  resetBtn.hidden = usedConvos.size === 0;
+}
+
+function startConvo(key) {
+  if (busy) return;
+  busy = true;
+  usedConvos.add(key);
+  const c = convos[key];
+
+  quickChips.innerHTML = '';
+
+  const sentMsg = createMsg('sent', c.query, c.time);
+  chatArea.appendChild(sentMsg);
+  scrollChat();
+
+  setTimeout(() => {
+    showTyping();
+    scrollChat();
+
+    const delay = 1200 + Math.random() * 800;
+    setTimeout(() => {
+      hideTyping();
+      const recvMsg = createMsg('recv', c.response, c.responseTime);
+      chatArea.appendChild(recvMsg);
+      scrollChat();
+      updateChips();
+      busy = false;
+    }, delay);
+  }, 400);
+}
+
+function resetChat() {
+  usedConvos.clear();
+  const msgs = chatArea.querySelectorAll('.msg');
+  msgs.forEach((m, i) => { if (i > 0) m.remove(); });
+  updateChips();
+}
+</script>
