@@ -28,7 +28,8 @@ Es una maqueta funcional (front-end, sin backend real ni conexiones a servicios 
 
 ## Cómo verla
 
-Abre el archivo [index.html](index.html) directamente en tu navegador, o revisa la versión publicada del proyecto (GitHub Pages) si está disponible en la descripción del repositorio.
+- **En vivo**: https://ddamianzr.github.io/mindos-propuesta-ads/
+- **Localmente**: descarga o clona el repositorio y abre el archivo [index.html](index.html) directamente en tu navegador.
 
 ## Contexto académico
 
