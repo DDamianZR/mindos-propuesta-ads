@@ -87,3 +87,18 @@ test('clockAdvanced no invalida una propuesta lista', () => {
   state = reducer(state, actions.clockAdvanced(30));
   assert.equal(state.proposal.status, 'ready');
 });
+
+test('taskDone conserva los bloques pasados no hechos (historial) y quita solo los futuros', () => {
+  let state = createInitialState({ today: today() });
+  const taskId = 'asana-mockups';
+  const [pastBlock] = state.data.blocks.filter((block) => block.taskId === taskId);
+  assert.ok(pastBlock, 'el seed debe tener un bloque de asana-mockups');
+
+  // Avanza el reloj hasta después de que empezó el bloque, sin marcarlo como hecho.
+  state = reducer(state, actions.clockAdvanced(pastBlock.start - state.data.now + 1));
+  state = reducer(state, actions.taskDone(taskId, true));
+
+  const remaining = state.data.blocks.filter((block) => block.taskId === taskId);
+  assert.deepEqual(remaining.map((block) => block.id), [pastBlock.id]);
+  assert.equal(remaining[0].done, false);
+});

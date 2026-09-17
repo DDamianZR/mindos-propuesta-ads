@@ -68,3 +68,14 @@ test('el horario de trabajo se deriva de los turnos de la primera semana', () =>
   assert.equal(workScheduleText(data), 'martes y jueves por la tarde');
   assert.equal(workScheduleText({ events: [] }), null);
 });
+
+test('el horario de trabajo agrupa turnos distintos por momento del día, sin depender del orden', () => {
+  const shift = (day, hhmm) => ({ kind: 'work', start: at(day, hhmm), end: at(day, hhmm) + 240 });
+  // Desordenados a propósito: el jueves por la tarde aparece antes que el martes por la mañana.
+  const mixed = { events: [shift(3, '15:00'), shift(1, '08:00'), shift(4, '20:00')] };
+  assert.equal(workScheduleText(mixed), 'martes por la mañana, jueves por la tarde y viernes por la noche');
+
+  // Dos turnos el mismo día y momento no repiten el día.
+  const repeated = { events: [shift(1, '15:00'), shift(1, '17:30')] };
+  assert.equal(workScheduleText(repeated), 'martes por la tarde');
+});

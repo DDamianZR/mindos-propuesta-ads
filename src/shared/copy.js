@@ -6,14 +6,23 @@ import { formatClock, formatHours, joinList, relativeDay, weekdayName } from './
 
 const quoted = (text) => `«${text}»`;
 
-/** "martes y jueves por la tarde", a partir de los turnos de trabajo de la primera semana. */
+const momentOf = (minute) => (minute < 12 * 60 ? 'por la mañana' : minute < 19 * 60 ? 'por la tarde' : 'por la noche');
+
+/** "martes y jueves por la tarde": turnos de trabajo de la semana de la demo, agrupados por momento del día. */
 export function workScheduleText(data) {
-  const events = data.events.filter((event) => event.kind === 'work' && event.start >= 0 && event.start < MINUTES_PER_DAY * DAYS_PER_WEEK);
-  if (events.length === 0) return null;
-  const days = [...new Set(events.map((event) => dayOf(event.start)))].sort((a, b) => a - b);
-  const startMinute = minuteOfDay(events[0].start);
-  const moment = startMinute < 12 * 60 ? 'por la mañana' : startMinute < 19 * 60 ? 'por la tarde' : 'por la noche';
-  return `${joinList(days.map((day) => weekdayName(day)))} ${moment}`;
+  const weekEnd = MINUTES_PER_DAY * DAYS_PER_WEEK;
+  const shifts = data.events
+    .filter((event) => event.kind === 'work' && event.start >= 0 && event.start < weekEnd)
+    .sort((a, b) => a.start - b.start);
+  if (shifts.length === 0) return null;
+  const daysByMoment = new Map();
+  for (const shift of shifts) {
+    const moment = momentOf(minuteOfDay(shift.start));
+    const days = daysByMoment.get(moment) ?? [];
+    if (!days.includes(dayOf(shift.start))) days.push(dayOf(shift.start));
+    daysByMoment.set(moment, days);
+  }
+  return joinList([...daysByMoment].map(([moment, days]) => `${joinList(days.map((day) => weekdayName(day)))} ${moment}`));
 }
 
 export function dueChangeText(change, task, { weekStart, now }, emphasize = quoted) {
