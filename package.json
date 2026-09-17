@@ -1,0 +1,15 @@
+{
+  "name": "mindos",
+  "version": "0.2.0",
+  "private": true,
+  "description": "Asistente académico que detecta cuándo tu semana deja de ser viable y la reorganiza contigo, desde WhatsApp.",
+  "type": "module",
+  "scripts": {
+    "start": "node scripts/serve.mjs",
+    "test": "node --test",
+    "check": "node scripts/check.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

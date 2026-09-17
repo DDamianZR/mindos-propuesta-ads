@@ -1,6 +1,11 @@
+# Dependencias, registros y variables locales
 node_modules/
-.DS_Store
-Thumbs.db
 *.log
 .env
+
+# Archivos del sistema operativo
+.DS_Store
+Thumbs.db
+
+# Configuración local de herramientas de desarrollo
 .claude/

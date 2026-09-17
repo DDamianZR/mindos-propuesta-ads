@@ -1,0 +1,223 @@
+/*
+ * MindOS · Design tokens
+ *
+ * Lenguaje: neumorfismo sobrio. Una sola superficie ("niebla") de la que los
+ * elementos se elevan o se hunden:
+ *   elevado  → se puede tocar o contiene cosas (botones, tarjetas, bloques de estudio)
+ *   hundido  → datos o entradas (campos, pistas, medidores, compromisos fijos)
+ *   presionado → seleccionado o activo
+ * El color solo comunica significado; las acciones principales van rellenas.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* Superficies */
+  --surface: #e3e9eb;
+  --surface-sunken: #d9e0e3;
+  --surface-raised: #eaeff1;
+  --shadow-light: rgb(255 255 255 / 0.9);
+  --shadow-dark: rgb(146 163 170 / 0.6);
+  --edge: rgb(255 255 255 / 0.6);
+  --line: rgb(21 40 44 / 0.09);
+
+  /* Texto (todos cumplen WCAG AA sobre --surface) */
+  --ink: #15282c;
+  --ink-2: #33474c;
+  --ink-3: #52656a;
+
+  /* Marca y acción: también identifica lo que planea MindOS */
+  --primary: #0b6e71;
+  --primary-strong: #085a5d;
+  --primary-soft: rgb(11 110 113 / 0.12);
+  --on-primary: #ffffff;
+  --focus-ring: #0b6e71;
+
+  /* Estados de carga */
+  --ok-fill: #57afa8;
+  --tight: #7a4f00;
+  --tight-fill: #e7ad48;
+  --tight-soft: rgb(231 173 72 / 0.22);
+  --over: #a8321e;
+  --over-fill: #de6a52;
+  --over-soft: rgb(222 106 82 / 0.16);
+
+  /* Materias: solo marcadores pequeños, siempre acompañados de texto */
+  --course-1: #5b63c9;
+  --course-2: #c0508a;
+  --course-3: #2f7fb7;
+  --course-4: #6f8e34;
+
+  /* Vista previa del canal de WhatsApp (solo dentro del teléfono) */
+  --wa-bar: #0f5e57;
+  --wa-wallpaper: #e9e2d8;
+  --wa-bubble-in: #ffffff;
+  --wa-bubble-out: #d9f7d0;
+  --wa-ink: #16211f;
+  --wa-meta: #5f6f76;
+  --wa-meta-out: #53655c;
+  --wa-action: #0a7065;
+  --wa-read: #2a8fc6;
+  --wa-on-bar: #ffffff;
+  --wa-on-bar-muted: #dcefeb;
+  --wa-elevation: 0 1px 1px rgb(0 0 0 / 0.1);
+
+  /* Insignias y rellenos */
+  --badge-bg: #a8321e;
+  --badge-ink: #ffffff;
+  --fill-highlight: rgb(255 255 255 / 0.28);
+  --gap-stripe: rgb(255 255 255 / 0.55);
+
+  /* Profundidad */
+  --raise-1: -3px -3px 7px var(--shadow-light), 3px 3px 8px var(--shadow-dark);
+  --raise-2: -6px -6px 14px var(--shadow-light), 7px 7px 16px var(--shadow-dark);
+  --raise-3: -10px -10px 24px var(--shadow-light), 14px 14px 32px var(--shadow-dark);
+  --sink-1: inset 2px 2px 4px var(--shadow-dark), inset -2px -2px 4px var(--shadow-light);
+  --sink-2: inset 4px 4px 9px var(--shadow-dark), inset -4px -4px 9px var(--shadow-light);
+  --raise-primary: -3px -3px 7px var(--shadow-light), 4px 5px 12px rgb(11 110 113 / 0.38);
+  --press-primary: inset 2px 2px 6px rgb(0 0 0 / 0.28);
+
+  /* Forma: el radio crece con el tamaño del elemento */
+  --radius-xs: 8px;
+  --radius-sm: 12px;
+  --radius-md: 18px;
+  --radius-lg: 26px;
+  --radius-xl: 40px;
+  --radius-pill: 999px;
+
+  /* Espacio: base de 4 px */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 32px;
+  --space-8: 40px;
+  --space-9: 56px;
+
+  /* Tipografía: Lexend fue diseñada para reducir el esfuerzo de lectura */
+  --font: 'Lexend', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-md: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.3125rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 2.25rem;
+  --weight-light: 300;
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --leading-tight: 1.15;
+  --leading-snug: 1.35;
+  --leading-normal: 1.55;
+
+  /* Movimiento: rápido y discreto */
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --duration-1: 120ms;
+  --duration-2: 200ms;
+  --duration-3: 420ms;
+
+  /* Estructura */
+  --topbar-height: 72px;
+  --tabbar-height: 68px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    color-scheme: dark;
+    --surface: #1e2528;
+    --surface-sunken: #192023;
+    --surface-raised: #242c30;
+    --shadow-light: rgb(255 255 255 / 0.05);
+    --shadow-dark: rgb(0 0 0 / 0.55);
+    --edge: rgb(255 255 255 / 0.05);
+    --line: rgb(255 255 255 / 0.08);
+    --ink: #eaf1f2;
+    --ink-2: #c3d0d3;
+    --ink-3: #93a5aa;
+    --primary: #4cc3b8;
+    --primary-strong: #6bd3c9;
+    --primary-soft: rgb(76 195 184 / 0.14);
+    --on-primary: #06201e;
+    --focus-ring: #6bd3c9;
+    --ok-fill: #3e9d95;
+    --tight: #f2c36b;
+    --tight-fill: #d59b39;
+    --tight-soft: rgb(213 155 57 / 0.18);
+    --over: #f29680;
+    --over-fill: #d0654f;
+    --over-soft: rgb(208 101 79 / 0.18);
+    --course-1: #8c93f0;
+    --course-2: #e07db2;
+    --course-3: #62a9dc;
+    --course-4: #9bbe5c;
+    --wa-bar: #1f2c33;
+    --wa-wallpaper: #0b141a;
+    --wa-bubble-in: #202c33;
+    --wa-bubble-out: #005c4b;
+    --wa-ink: #e9edef;
+    --wa-meta: #8696a0;
+    --wa-meta-out: #b5d6cd;
+    --wa-action: #53bdeb;
+    --wa-read: #53bdeb;
+    --wa-on-bar: #ffffff;
+    --wa-on-bar-muted: #c5d3d8;
+    --wa-elevation: 0 1px 1px rgb(0 0 0 / 0.3);
+    --badge-bg: #f29680;
+    --badge-ink: #1e2528;
+    --fill-highlight: rgb(255 255 255 / 0.16);
+    --gap-stripe: rgb(255 255 255 / 0.4);
+    --raise-primary: -3px -3px 7px var(--shadow-light), 4px 5px 12px rgb(0 0 0 / 0.5);
+    --press-primary: inset 2px 2px 6px rgb(0 0 0 / 0.35);
+  }
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --surface: #1e2528;
+  --surface-sunken: #192023;
+  --surface-raised: #242c30;
+  --shadow-light: rgb(255 255 255 / 0.05);
+  --shadow-dark: rgb(0 0 0 / 0.55);
+  --edge: rgb(255 255 255 / 0.05);
+  --line: rgb(255 255 255 / 0.08);
+  --ink: #eaf1f2;
+  --ink-2: #c3d0d3;
+  --ink-3: #93a5aa;
+  --primary: #4cc3b8;
+  --primary-strong: #6bd3c9;
+  --primary-soft: rgb(76 195 184 / 0.14);
+  --on-primary: #06201e;
+  --focus-ring: #6bd3c9;
+  --ok-fill: #3e9d95;
+  --tight: #f2c36b;
+  --tight-fill: #d59b39;
+  --tight-soft: rgb(213 155 57 / 0.18);
+  --over: #f29680;
+  --over-fill: #d0654f;
+  --over-soft: rgb(208 101 79 / 0.18);
+  --course-1: #8c93f0;
+  --course-2: #e07db2;
+  --course-3: #62a9dc;
+  --course-4: #9bbe5c;
+  --wa-bar: #1f2c33;
+  --wa-wallpaper: #0b141a;
+  --wa-bubble-in: #202c33;
+  --wa-bubble-out: #005c4b;
+  --wa-ink: #e9edef;
+  --wa-meta: #8696a0;
+  --wa-meta-out: #b5d6cd;
+  --wa-action: #53bdeb;
+  --wa-read: #53bdeb;
+  --wa-on-bar: #ffffff;
+  --wa-on-bar-muted: #c5d3d8;
+  --wa-elevation: 0 1px 1px rgb(0 0 0 / 0.3);
+  --badge-bg: #f29680;
+  --badge-ink: #1e2528;
+  --fill-highlight: rgb(255 255 255 / 0.16);
+  --gap-stripe: rgb(255 255 255 / 0.4);
+  --raise-primary: -3px -3px 7px var(--shadow-light), 4px 5px 12px rgb(0 0 0 / 0.5);
+  --press-primary: inset 2px 2px 6px rgb(0 0 0 / 0.35);
+}
