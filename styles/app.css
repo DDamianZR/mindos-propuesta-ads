@@ -48,6 +48,14 @@
   box-shadow: var(--raise-1);
 }
 
+.brand__logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 13px;
+  object-fit: cover;
+  flex: none;
+}
+
 .brand__name {
   font-size: var(--text-xl);
   font-weight: var(--weight-semibold);
@@ -2006,6 +2014,11 @@ label.slot__title {
   }
 
   .brand__mark {
+    width: 36px;
+    height: 36px;
+  }
+
+  .brand__logo {
     width: 36px;
     height: 36px;
   }
