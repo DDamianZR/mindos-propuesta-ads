@@ -79,7 +79,7 @@ Pulsa **Demo guiada** en la barra superior. Reinicia los datos y recorre la hist
 | --- | --- | --- | --- |
 | 1 | Fuentes | Ocho plataformas, una con error | «Cada profesor publica en un lugar distinto. Ninguna plataforma ve la semana completa.» |
 | 2 | Pendientes | Bandeja unificada | «MindOS junta todo, con fecha, tiempo restante y plan.» |
-| 3 | Hoy + WhatsApp | Se pregunta «¿Qué tengo hoy?» | «Valeria no abre otra app: pregunta por WhatsApp.» |
+| 3 | Hoy + WhatsApp | Se pregunta «¿Qué tengo hoy?» | «Jennifer no abre otra app: pregunta por WhatsApp.» |
 | 4 | Semana | Teams adelanta el quiz; el miércoles pasa a sobrecarga y llega la alerta | «Este es el choque que nadie más detecta.» |
 | 5 | Semana | Aparece la propuesta: un cambio, conflictos resueltos | «Mueve lo mínimo y no toca el sueño. Ella decide.» |
 | 6 | Semana | Se aplica; radar y WhatsApp se actualizan | «Siguiente: horario desde SAES, modo equipo y alertas para tutores.» |
@@ -183,7 +183,7 @@ flowchart TD
 │   ├── shared/             format (español), copy (frases compartidas)
 │   ├── assistant/          intents (comprensión), engine (respuestas)
 │   ├── app/                store, reducer, commands, persistence
-│   ├── data/seed.js        La semana de Valeria
+│   ├── data/seed.js        La semana de Jennifer
 │   └── ui/                 shell, chat, tour, components, dom, icons y views/
 ├── tests/                  Dominio, asistente, formato e historia completa de la demo
 ├── scripts/
