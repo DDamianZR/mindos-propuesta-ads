@@ -1,54 +1,65 @@
 /*
  * MindOS · Design tokens
  *
- * Lenguaje: neumorfismo sobrio. Una sola superficie ("niebla") de la que los
+ * Lenguaje: neumorfismo violeta. Una sola superficie lavanda de la que los
  * elementos se elevan o se hunden:
- *   elevado  → se puede tocar o contiene cosas (botones, tarjetas, bloques de estudio)
- *   hundido  → datos o entradas (campos, pistas, medidores, compromisos fijos)
+ *   elevado    → se puede tocar o contiene cosas (botones, tarjetas, bloques de estudio)
+ *   hundido    → datos o entradas (campos, pistas, medidores, compromisos fijos)
  *   presionado → seleccionado o activo
- * El color solo comunica significado; las acciones principales van rellenas.
+ * El violeta identifica a MindOS y sus acciones; el degradado violeta-fucsia marca
+ * lo que MindOS propone. Ámbar y rosa solo comunican estados de carga.
  */
 
 :root {
   color-scheme: light;
 
   /* Superficies */
-  --surface: #e3e9eb;
-  --surface-sunken: #d9e0e3;
-  --surface-raised: #eaeff1;
-  --shadow-light: rgb(255 255 255 / 0.9);
-  --shadow-dark: rgb(146 163 170 / 0.6);
-  --edge: rgb(255 255 255 / 0.6);
-  --line: rgb(21 40 44 / 0.09);
+  --surface: #ece9f6;
+  --surface-sunken: #e2def0;
+  --surface-raised: #f4f2fb;
+  --convex: linear-gradient(145deg, #f4f2fb, #e1ddf0);
+  --shadow-light: rgb(255 255 255 / 0.95);
+  --shadow-dark: rgb(150 138 196 / 0.55);
+  --edge: rgb(255 255 255 / 0.7);
+  --line: rgb(46 26 94 / 0.1);
 
-  /* Texto (todos cumplen WCAG AA sobre --surface) */
-  --ink: #15282c;
-  --ink-2: #33474c;
-  --ink-3: #52656a;
+  /* Texto (todos cumplen WCAG AA sobre las superficies) */
+  --ink: #1e1537;
+  --ink-2: #3f3660;
+  --ink-3: #5e5780;
 
   /* Marca y acción: también identifica lo que planea MindOS */
-  --primary: #0b6e71;
-  --primary-strong: #085a5d;
-  --primary-soft: rgb(11 110 113 / 0.12);
+  --primary: #6d28d9;
+  --primary-strong: #5b21b6;
+  --primary-soft: rgb(124 58 237 / 0.14);
   --on-primary: #ffffff;
-  --focus-ring: #0b6e71;
+  --primary-gradient: linear-gradient(135deg, #7c3aed, #6d28d9);
+  --primary-gradient-hover: linear-gradient(135deg, #6d28d9, #5b21b6);
+  --focus-ring: #7c3aed;
+
+  /* Lo que MindOS propone: marca, sugerencias y avatar del asistente */
+  --brand-gradient: linear-gradient(135deg, #7c3aed, #c026d3);
+  --on-brand: #ffffff;
 
   /* Estados de carga */
-  --ok-fill: #57afa8;
-  --tight: #7a4f00;
-  --tight-fill: #e7ad48;
-  --tight-soft: rgb(231 173 72 / 0.22);
-  --over: #a8321e;
-  --over-fill: #de6a52;
-  --over-soft: rgb(222 106 82 / 0.16);
+  --ok-fill: #8b5cf6;
+  --ok-gradient: linear-gradient(180deg, #a78bfa, #7c3aed);
+  --tight: #92400e;
+  --tight-fill: #f59e0b;
+  --tight-soft: rgb(245 158 11 / 0.2);
+  --tight-gradient: linear-gradient(180deg, #fbbf24, #f59e0b);
+  --over: #9f1239;
+  --over-fill: #f43f5e;
+  --over-soft: rgb(244 63 94 / 0.14);
+  --over-gradient: linear-gradient(180deg, #fb7185, #f43f5e);
 
   /* Materias: solo marcadores pequeños, siempre acompañados de texto */
-  --course-1: #5b63c9;
-  --course-2: #c0508a;
-  --course-3: #2f7fb7;
-  --course-4: #6f8e34;
+  --course-1: #2563eb;
+  --course-2: #db2777;
+  --course-3: #0d9488;
+  --course-4: #4d7c0f;
 
-  /* Vista previa del canal de WhatsApp (solo dentro del teléfono) */
+  /* Vista previa del canal de WhatsApp (solo dentro del teléfono): colores reales de WhatsApp */
   --wa-bar: #0f5e57;
   --wa-wallpaper: #e9e2d8;
   --wa-bubble-in: #ffffff;
@@ -63,19 +74,19 @@
   --wa-elevation: 0 1px 1px rgb(0 0 0 / 0.1);
 
   /* Insignias y rellenos */
-  --badge-bg: #a8321e;
+  --badge-bg: #e11d48;
   --badge-ink: #ffffff;
-  --fill-highlight: rgb(255 255 255 / 0.28);
+  --fill-highlight: rgb(255 255 255 / 0.35);
   --gap-stripe: rgb(255 255 255 / 0.55);
 
-  /* Profundidad */
-  --raise-1: -3px -3px 7px var(--shadow-light), 3px 3px 8px var(--shadow-dark);
-  --raise-2: -6px -6px 14px var(--shadow-light), 7px 7px 16px var(--shadow-dark);
-  --raise-3: -10px -10px 24px var(--shadow-light), 14px 14px 32px var(--shadow-dark);
-  --sink-1: inset 2px 2px 4px var(--shadow-dark), inset -2px -2px 4px var(--shadow-light);
-  --sink-2: inset 4px 4px 9px var(--shadow-dark), inset -4px -4px 9px var(--shadow-light);
-  --raise-primary: -3px -3px 7px var(--shadow-light), 4px 5px 12px rgb(11 110 113 / 0.38);
-  --press-primary: inset 2px 2px 6px rgb(0 0 0 / 0.28);
+  /* Profundidad: más marcada, para que el relieve se lea también en un proyector */
+  --raise-1: -4px -4px 10px var(--shadow-light), 4px 4px 10px var(--shadow-dark);
+  --raise-2: -8px -8px 20px var(--shadow-light), 9px 9px 22px var(--shadow-dark);
+  --raise-3: -14px -14px 32px var(--shadow-light), 16px 16px 36px var(--shadow-dark);
+  --sink-1: inset 3px 3px 6px var(--shadow-dark), inset -3px -3px 6px var(--shadow-light);
+  --sink-2: inset 6px 6px 12px var(--shadow-dark), inset -6px -6px 12px var(--shadow-light);
+  --raise-primary: -4px -4px 10px var(--shadow-light), 0 12px 24px -8px rgb(109 40 217 / 0.55);
+  --press-primary: inset 3px 3px 8px rgb(46 16 101 / 0.4);
 
   /* Forma: el radio crece con el tamaño del elemento */
   --radius-xs: 8px;
@@ -127,32 +138,38 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']) {
     color-scheme: dark;
-    --surface: #1e2528;
-    --surface-sunken: #192023;
-    --surface-raised: #242c30;
-    --shadow-light: rgb(255 255 255 / 0.05);
-    --shadow-dark: rgb(0 0 0 / 0.55);
-    --edge: rgb(255 255 255 / 0.05);
-    --line: rgb(255 255 255 / 0.08);
-    --ink: #eaf1f2;
-    --ink-2: #c3d0d3;
-    --ink-3: #93a5aa;
-    --primary: #4cc3b8;
-    --primary-strong: #6bd3c9;
-    --primary-soft: rgb(76 195 184 / 0.14);
-    --on-primary: #06201e;
-    --focus-ring: #6bd3c9;
-    --ok-fill: #3e9d95;
-    --tight: #f2c36b;
-    --tight-fill: #d59b39;
-    --tight-soft: rgb(213 155 57 / 0.18);
-    --over: #f29680;
-    --over-fill: #d0654f;
-    --over-soft: rgb(208 101 79 / 0.18);
-    --course-1: #8c93f0;
-    --course-2: #e07db2;
-    --course-3: #62a9dc;
-    --course-4: #9bbe5c;
+    --surface: #1e1b2e;
+    --surface-sunken: #18152a;
+    --surface-raised: #262238;
+    --convex: linear-gradient(145deg, #2a2640, #1b1829);
+    --shadow-light: rgb(167 139 250 / 0.08);
+    --shadow-dark: rgb(6 4 16 / 0.72);
+    --edge: rgb(255 255 255 / 0.06);
+    --line: rgb(255 255 255 / 0.09);
+    --ink: #f1eefb;
+    --ink-2: #cfc8e8;
+    --ink-3: #a39cc4;
+    --primary: #a78bfa;
+    --primary-strong: #c4b5fd;
+    --primary-soft: rgb(167 139 250 / 0.16);
+    --on-primary: #1a1033;
+    --primary-gradient: linear-gradient(135deg, #c4b5fd, #a78bfa);
+    --primary-gradient-hover: linear-gradient(135deg, #ddd6fe, #c4b5fd);
+    --focus-ring: #c4b5fd;
+    --ok-fill: #8b5cf6;
+    --ok-gradient: linear-gradient(180deg, #c4b5fd, #8b5cf6);
+    --tight: #fcd34d;
+    --tight-fill: #f59e0b;
+    --tight-soft: rgb(245 158 11 / 0.18);
+    --tight-gradient: linear-gradient(180deg, #fcd34d, #f59e0b);
+    --over: #fda4af;
+    --over-fill: #f43f5e;
+    --over-soft: rgb(244 63 94 / 0.18);
+    --over-gradient: linear-gradient(180deg, #fda4af, #f43f5e);
+    --course-1: #60a5fa;
+    --course-2: #f472b6;
+    --course-3: #2dd4bf;
+    --course-4: #a3e635;
     --wa-bar: #1f2c33;
     --wa-wallpaper: #0b141a;
     --wa-bubble-in: #202c33;
@@ -165,43 +182,49 @@
     --wa-on-bar: #ffffff;
     --wa-on-bar-muted: #c5d3d8;
     --wa-elevation: 0 1px 1px rgb(0 0 0 / 0.3);
-    --badge-bg: #f29680;
-    --badge-ink: #1e2528;
-    --fill-highlight: rgb(255 255 255 / 0.16);
-    --gap-stripe: rgb(255 255 255 / 0.4);
-    --raise-primary: -3px -3px 7px var(--shadow-light), 4px 5px 12px rgb(0 0 0 / 0.5);
-    --press-primary: inset 2px 2px 6px rgb(0 0 0 / 0.35);
+    --badge-bg: #fb7185;
+    --badge-ink: #1a1033;
+    --fill-highlight: rgb(255 255 255 / 0.2);
+    --gap-stripe: rgb(255 255 255 / 0.45);
+    --raise-primary: -4px -4px 10px var(--shadow-light), 0 12px 26px -8px rgb(167 139 250 / 0.45);
+    --press-primary: inset 3px 3px 8px rgb(0 0 0 / 0.4);
   }
 }
 
 :root[data-theme='dark'] {
   color-scheme: dark;
-  --surface: #1e2528;
-  --surface-sunken: #192023;
-  --surface-raised: #242c30;
-  --shadow-light: rgb(255 255 255 / 0.05);
-  --shadow-dark: rgb(0 0 0 / 0.55);
-  --edge: rgb(255 255 255 / 0.05);
-  --line: rgb(255 255 255 / 0.08);
-  --ink: #eaf1f2;
-  --ink-2: #c3d0d3;
-  --ink-3: #93a5aa;
-  --primary: #4cc3b8;
-  --primary-strong: #6bd3c9;
-  --primary-soft: rgb(76 195 184 / 0.14);
-  --on-primary: #06201e;
-  --focus-ring: #6bd3c9;
-  --ok-fill: #3e9d95;
-  --tight: #f2c36b;
-  --tight-fill: #d59b39;
-  --tight-soft: rgb(213 155 57 / 0.18);
-  --over: #f29680;
-  --over-fill: #d0654f;
-  --over-soft: rgb(208 101 79 / 0.18);
-  --course-1: #8c93f0;
-  --course-2: #e07db2;
-  --course-3: #62a9dc;
-  --course-4: #9bbe5c;
+  --surface: #1e1b2e;
+  --surface-sunken: #18152a;
+  --surface-raised: #262238;
+  --convex: linear-gradient(145deg, #2a2640, #1b1829);
+  --shadow-light: rgb(167 139 250 / 0.08);
+  --shadow-dark: rgb(6 4 16 / 0.72);
+  --edge: rgb(255 255 255 / 0.06);
+  --line: rgb(255 255 255 / 0.09);
+  --ink: #f1eefb;
+  --ink-2: #cfc8e8;
+  --ink-3: #a39cc4;
+  --primary: #a78bfa;
+  --primary-strong: #c4b5fd;
+  --primary-soft: rgb(167 139 250 / 0.16);
+  --on-primary: #1a1033;
+  --primary-gradient: linear-gradient(135deg, #c4b5fd, #a78bfa);
+  --primary-gradient-hover: linear-gradient(135deg, #ddd6fe, #c4b5fd);
+  --focus-ring: #c4b5fd;
+  --ok-fill: #8b5cf6;
+  --ok-gradient: linear-gradient(180deg, #c4b5fd, #8b5cf6);
+  --tight: #fcd34d;
+  --tight-fill: #f59e0b;
+  --tight-soft: rgb(245 158 11 / 0.18);
+  --tight-gradient: linear-gradient(180deg, #fcd34d, #f59e0b);
+  --over: #fda4af;
+  --over-fill: #f43f5e;
+  --over-soft: rgb(244 63 94 / 0.18);
+  --over-gradient: linear-gradient(180deg, #fda4af, #f43f5e);
+  --course-1: #60a5fa;
+  --course-2: #f472b6;
+  --course-3: #2dd4bf;
+  --course-4: #a3e635;
   --wa-bar: #1f2c33;
   --wa-wallpaper: #0b141a;
   --wa-bubble-in: #202c33;
@@ -214,10 +237,10 @@
   --wa-on-bar: #ffffff;
   --wa-on-bar-muted: #c5d3d8;
   --wa-elevation: 0 1px 1px rgb(0 0 0 / 0.3);
-  --badge-bg: #f29680;
-  --badge-ink: #1e2528;
-  --fill-highlight: rgb(255 255 255 / 0.16);
-  --gap-stripe: rgb(255 255 255 / 0.4);
-  --raise-primary: -3px -3px 7px var(--shadow-light), 4px 5px 12px rgb(0 0 0 / 0.5);
-  --press-primary: inset 2px 2px 6px rgb(0 0 0 / 0.35);
+  --badge-bg: #fb7185;
+  --badge-ink: #1a1033;
+  --fill-highlight: rgb(255 255 255 / 0.2);
+  --gap-stripe: rgb(255 255 255 / 0.45);
+  --raise-primary: -4px -4px 10px var(--shadow-light), 0 12px 26px -8px rgb(167 139 250 / 0.45);
+  --press-primary: inset 3px 3px 8px rgb(0 0 0 / 0.4);
 }

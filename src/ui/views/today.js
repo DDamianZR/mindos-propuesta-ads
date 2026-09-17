@@ -21,7 +21,7 @@ import { h } from '../dom.js';
 import { icon } from '../icons.js';
 import { ITEM_KINDS, planStatus, viewHeader } from './shared.js';
 
-const LEVEL_COLORS = { free: 'var(--ok-fill)', ok: 'var(--ok-fill)', tight: 'var(--tight-fill)', over: 'var(--over-fill)' };
+const LEVEL_COLORS = { free: 'var(--ok-gradient)', ok: 'var(--ok-gradient)', tight: 'var(--tight-gradient)', over: 'var(--over-gradient)' };
 
 export function renderToday(state, { commands, analysis, startTour }) {
   const { data, prefs } = state;

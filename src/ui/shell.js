@@ -18,7 +18,7 @@ const VIEWS = {
   sources: { title: 'Fuentes', render: renderSources },
 };
 
-const THEME_COLORS = { light: '#e3e9eb', dark: '#1e2528' };
+const THEME_COLORS = { light: '#ece9f6', dark: '#1e1b2e' };
 
 export function mountShell({ store, commands }) {
   const desktop = window.matchMedia('(min-width: 1180px)');

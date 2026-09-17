@@ -128,7 +128,7 @@ flowchart TD
 
 ## Design system
 
-**Neumorfismo sobrio, con reglas de accesibilidad.** Una sola superficie de la que los elementos se elevan o se hunden, y cada estado tiene un significado:
+**Neumorfismo violeta, con reglas de accesibilidad.** Una sola superficie lavanda de la que los elementos se elevan o se hunden, y cada estado tiene un significado:
 
 | Tratamiento | Significado | Ejemplos |
 | --- | --- | --- |
@@ -138,9 +138,11 @@ flowchart TD
 | Relleno de color | Acción principal | «Aplicar cambios», «Reorganizar semana» |
 
 - **Color con función.**
-  - **Teal** (`#0b6e71`) marca la identidad de la app, las acciones y lo que planea MindOS.
-  - **Ámbar** indica un día *justo* y **coral**, *sobrecarga*.
-  - Cuatro tonos identifican materias, siempre acompañados de texto.
+  - **Violeta** (`#6d28d9`) marca la identidad de la app, las acciones y lo que planea MindOS.
+  - **Degradado violeta-fucsia** señala lo que MindOS propone: la marca, las sugerencias y el avatar del asistente.
+  - **Ámbar** indica un día *justo* y **rosa**, *sobrecarga*.
+  - Cuatro tonos (azul, rosa fuerte, verde azulado y verde lima) identifican materias, siempre acompañados de texto.
+  - La vista previa de WhatsApp conserva los colores reales de WhatsApp.
   - Los tokens están en `styles/tokens.css`, con modo oscuro completo.
 - **Contraste verificado.** Todos los pares de texto cumplen WCAG AA en ambos temas. Las sombras son un poco más marcadas de lo habitual para que no desaparezcan en un proyector.
 - **Tipografía.** [Lexend](https://www.lexend.com/), una familia diseñada para reducir el esfuerzo de lectura, en una sola familia con escala 12 · 14 · 16 · 18 · 21 · 24 · 36 px.
