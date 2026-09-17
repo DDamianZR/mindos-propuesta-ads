@@ -27,7 +27,7 @@ test('la historia completa: resumen, cambio detectado, propuesta y plan aplicado
   const { store, commands, toasts, lastMessage } = setup();
 
   await commands.start();
-  assert.match(lastMessage().text, /^Buenos días, Valeria/);
+  assert.match(lastMessage().text, /^Buenos días, Jennifer/);
 
   await commands.ask({ text: '¿Qué tengo hoy?' });
   assert.match(lastMessage().text, /Bases de Datos/);

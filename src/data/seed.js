@@ -1,4 +1,4 @@
-// Datos de demostración: la semana de Valeria.
+// Datos de demostración: la semana de Jennifer.
 //
 // Estudia 6.º semestre de Ingeniería en Sistemas Computacionales y trabaja
 // martes y jueves por la tarde. Sus profesores publican en plataformas
@@ -14,8 +14,8 @@ export const SCHEMA_VERSION = 3;
 export const DEMO_START = at(0, '06:50');
 
 const profile = {
-  name: 'Valeria',
-  fullName: 'Valeria Méndez',
+  name: 'Jennifer',
+  fullName: 'Jennifer Méndez',
   program: 'Ingeniería en Sistemas Computacionales',
   semester: 6,
   job: 'Practicante de desarrollo',

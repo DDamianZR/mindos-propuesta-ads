@@ -12,7 +12,7 @@ const STEPS = [
     view: 'sources',
     target: 'sources',
     title: 'Todo está disperso',
-    body: 'Valeria usa ocho plataformas y cada profesor publica en una distinta. Ninguna ve su semana completa, así que nadie le avisa cuando algo choca.',
+    body: 'Jennifer usa ocho plataformas y cada profesor publica en una distinta. Ninguna ve su semana completa, así que nadie le avisa cuando algo choca.',
   },
   {
     view: 'tasks',
@@ -35,7 +35,7 @@ const STEPS = [
     view: 'week',
     target: 'radar',
     title: 'Algo cambia',
-    body: 'La profesora adelanta el quiz en Teams. MindOS cruza ese cambio con las otras entregas y el turno de trabajo de Valeria: el miércoles ya no le alcanza.',
+    body: 'La profesora adelanta el quiz en Teams. MindOS cruza ese cambio con las otras entregas y el turno de trabajo de Jennifer: el miércoles ya no le alcanza.',
     run: async ({ store, commands, flags, reframe }) => {
       if (!flags.sync && store.getState().data.remoteChanges.length > 0) flags.sync = commands.syncAll();
       await flags.sync;
@@ -45,7 +45,7 @@ const STEPS = [
   {
     view: 'week',
     target: 'proposal',
-    title: 'MindOS propone, Valeria decide',
+    title: 'MindOS propone, Jennifer decide',
     body: 'Busca el cambio que menos altera su semana, sin tocar sus horas de sueño. Ella puede aplicarlo aquí o respondiendo en WhatsApp.',
     run: async ({ store, commands, flags, reframe }) => {
       await flags.sync;
