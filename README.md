@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/logo.png" alt="Logo de MindOS" width="160">
+</p>
+
 # MindOS
 
 **Asistente académico que detecta cuándo tu semana deja de ser viable y la reorganiza contigo, desde WhatsApp.**
