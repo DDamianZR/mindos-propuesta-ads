@@ -8,7 +8,7 @@
 import { at, mondayOf, toISODate } from '../domain/time.js';
 import { planSchedule } from '../domain/planner.js';
 
-export const SCHEMA_VERSION = 3;
+export const SCHEMA_VERSION = 4;
 
 /** La demo empieza el lunes antes de la primera clase. */
 export const DEMO_START = at(0, '06:50');
