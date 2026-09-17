@@ -27,6 +27,7 @@
         document.getElementById('boot-error')?.removeAttribute('hidden');
       }, 3000);
       try {
+        // Debe coincidir con STORAGE_KEY en src/app/persistence.js.
         const theme = JSON.parse(localStorage.getItem('mindos:demo'))?.prefs?.theme;
         if (theme === 'light' || theme === 'dark') document.documentElement.dataset.theme = theme;
       } catch {}

@@ -1,7 +1,8 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
-import { dueChangeText, issueText } from '../src/shared/copy.js';
+import { dueChangeText, issueText, workScheduleText } from '../src/shared/copy.js';
+import { createDemoData } from '../src/data/seed.js';
 import { at } from '../src/domain/time.js';
 import {
   formatAgo,
@@ -60,4 +61,10 @@ test('los textos compartidos dicen lo mismo en la app y en WhatsApp', () => {
     issueText({ type: 'overload', day: 2, demand: 240, capacity: 180 }, { tasks: [] }),
     'El miércoles tendrías 4 h de trabajo para 3 h de enfoque.',
   );
+});
+
+test('el horario de trabajo se deriva de los turnos de la primera semana', () => {
+  const data = createDemoData(new Date(2026, 8, 16));
+  assert.equal(workScheduleText(data), 'martes y jueves por la tarde');
+  assert.equal(workScheduleText({ events: [] }), null);
 });

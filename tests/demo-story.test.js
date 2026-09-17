@@ -2,9 +2,11 @@
 
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import { readFile } from 'node:fs/promises';
+import { fileURLToPath } from 'node:url';
 
 import { createCommands } from '../src/app/commands.js';
-import { createPersistence } from '../src/app/persistence.js';
+import { createPersistence, STORAGE_KEY } from '../src/app/persistence.js';
 import { createInitialState, reducer } from '../src/app/reducer.js';
 import { createStore } from '../src/app/store.js';
 import { ruleBasedAssistant } from '../src/assistant/engine.js';
@@ -114,6 +116,12 @@ test('la persistencia tolera almacenamiento dañado o inaccesible', () => {
   const persistence = createPersistence(broken);
   assert.deepEqual(persistence.load('2026-09-14'), { prefs: null, session: null });
   assert.doesNotThrow(() => persistence.save(createInitialState({ today: today() })));
+});
+
+test('index.html usa la misma clave de almacenamiento que STORAGE_KEY', async () => {
+  const path = fileURLToPath(new URL('../index.html', import.meta.url));
+  const html = await readFile(path, 'utf8');
+  assert.ok(html.includes(`'${STORAGE_KEY}'`));
 });
 
 test('la sesión guardada solo se recupera en la misma semana', () => {

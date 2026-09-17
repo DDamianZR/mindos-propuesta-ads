@@ -15,6 +15,7 @@ import {
   plural,
   weekdayName,
 } from '../../shared/format.js';
+import { workScheduleText } from '../../shared/copy.js';
 import { button, courseTag, createLookup, levelBadge, sectionHeader, sourceTag } from '../components.js';
 import { h } from '../dom.js';
 import { icon } from '../icons.js';
@@ -36,7 +37,8 @@ export function renderToday(state, { commands, analysis, startTour }) {
       title: `${greetingFor(data.now)}, ${data.profile.name}`,
       lede: `${capitalize(formatDay(data.weekStart, today))}, ${formatClock(data.now)}`,
     }),
-    h('div', { class: 'today-top' }, focusCard(data, lookup, commands), daySummary(data, analysis.days[today], agenda)),
+    // `analysis.days` solo cubre la semana de la demo (0–6); un reloj fuera de rango no debe romper el render.
+    h('div', { class: 'today-top' }, focusCard(data, lookup, commands), daySummary(data, analysis.days[Math.min(today, 6)], agenda)),
     h(
       'section',
       { class: 'section', 'aria-labelledby': 'agenda-title' },
@@ -58,6 +60,8 @@ export function renderToday(state, { commands, analysis, startTour }) {
 
 function welcomeCard(data, commands, startTour) {
   const { profile } = data;
+  const schedule = workScheduleText(data);
+  const workClause = schedule ? ` y trabaja ${schedule}` : '';
   return h(
     'section',
     { class: 'card welcome', 'aria-labelledby': 'welcome-title' },
@@ -68,7 +72,7 @@ function welcomeCard(data, commands, startTour) {
       h(
         'p',
         {},
-        `Estudia ${profile.semester}.º semestre de ${profile.program} y trabaja martes y jueves por la tarde. Sus profesores publican en ${data.sources.length} plataformas distintas: MindOS las junta, detecta cuándo la semana deja de alcanzar y le propone qué hacer.`,
+        `Estudia ${profile.semester}.º semestre de ${profile.program}${workClause}. Sus profesores publican en ${data.sources.length} plataformas distintas: MindOS las junta, detecta cuándo la semana deja de alcanzar y le propone qué hacer.`,
       ),
       h('p', { class: 'welcome__note' }, icon('info', { size: 16 }), 'Datos simulados. Nada se conecta a cuentas reales.'),
     ),
