@@ -54,7 +54,7 @@ export function mountChat(container, { commands }) {
         h(
           'header',
           { class: 'wa-header' },
-          h('span', { class: 'wa-avatar', 'aria-hidden': 'true' }, 'M'),
+          h('img', { class: 'wa-avatar', src: 'assets/logo.png', alt: '', width: 38, height: 38 }),
           h('div', { class: 'wa-heading' }, h('h2', { class: 'wa-name' }, 'MindOS'), status),
         ),
         log,
